@@ -1,28 +1,31 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getContacts } from 'redux/selectors';
 
 import styles from './ContactForm.module.scss';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const { items } = useSelector(getContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.target;
 
     const name = form.elements.name.value;
-    const number = form.elements.number.value;
+    const phone = form.elements.phone.value;
 
-    if (contacts.find(contact => contact.number === number)) {
-      toast.error(`Contact with number "${number}" is already exists!`);
+    if (
+      items.find(contact => contact.name === name || contact.phone === phone)
+    ) {
+      toast.error(`This contact is already exists!`);
       form.reset();
       return;
     }
 
-    dispatch(addContact(name, number));
+    dispatch(addContact([name, phone]));
 
     form.reset();
   };
@@ -42,7 +45,7 @@ export const ContactForm = () => {
       <input
         className={styles.field}
         type="tel"
-        name="number"
+        name="phone"
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
         required

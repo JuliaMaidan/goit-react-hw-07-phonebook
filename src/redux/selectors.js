@@ -6,12 +6,12 @@ export const getFilteredContacts = store => {
   const { filter, contacts } = store;
 
   const normalizedFilter = filter.filter.toLowerCase();
-  const result = contacts.filter(({ name, number }) => {
+  const result = contacts.items.filter(({ name, phone }) => {
     return (
       name.toLowerCase().includes(normalizedFilter) ||
-      number.toLowerCase().includes(normalizedFilter)
+      phone.toLowerCase().includes(normalizedFilter)
     );
   });
-
+  console.log(result);
   return result;
 };
