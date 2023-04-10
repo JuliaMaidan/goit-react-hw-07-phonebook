@@ -12,6 +12,5 @@ export const getFilteredContacts = store => {
       phone.toLowerCase().includes(normalizedFilter)
     );
   });
-  console.log(result);
   return result;
 };
