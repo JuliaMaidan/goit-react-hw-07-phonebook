@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/operations';
+import { addContact } from '../../redux/operations';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getContacts } from 'redux/selectors';
+import { getContacts } from '../../redux/selectors';
 
 import styles from './ContactForm.module.scss';
 
